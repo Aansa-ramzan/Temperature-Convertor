@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temperature Converter</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #e3f2fd;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 320px;
+        }
+
+        h1 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #00796b;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        input, select, button {
+            width: 100%;
+            padding: 12px;
+            margin: 12px 0;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        input:focus, select:focus, button:focus {
+            border-color: #00796b;
+        }
+
+        select {
+            cursor: pointer;
+        }
+
+        button {
+            background-color: #00796b;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #004d40;
+        }
+
+        h4 {
+            font-size: 20px;
+            font-weight: 500;
+            color: #333;
+            margin-top: 20px;
+        }
+
+        label {
+            font-size: 14px;
+            margin-bottom: 5px;
+            display: block;
+            color: #00796b;
+            font-weight: 500;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 400px) {
+            .container {
+                width: 280px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Temperature Converter</h1>
+        <input type="number" id="input" placeholder="Enter temperature" value="37">
+        
+        <label for="from">From</label>
+        <select id="from" name="from">
+            <option value="Celsius">Celsius</option>
+            <option value="Kelvin">Kelvin</option>
+            <option value="Fahrenheit">Fahrenheit</option>
+        </select>
+        
+        <label for="to">To</label>
+        <select id="to" name="to">
+            <option value="Kelvin">Kelvin</option>
+            <option value="Celsius">Celsius</option>
+            <option value="Fahrenheit">Fahrenheit</option>
+        </select>
+        
+        <button id="button" onclick="convert()">Convert</button>
+        
+        <h4 id="output"></h4>
+    </div>
+
+    <script>
+        function convert() {
+            var result = '';
+            const t = parseFloat(document.getElementById('input').value);
+            
+            if (document.getElementById('from').value === 'Celsius') {
+                if (document.getElementById('to').value === 'Celsius') {
+                    result += t + " C";
+                } else if (document.getElementById('to').value === 'Kelvin') {
+                    result += (t + 273.15).toFixed(2) + " K";
+                } else {
+                    result += ((t * 9 / 5) + 32).toFixed(2) + " F";
+                }
+            } else if (document.getElementById('from').value === 'Kelvin') {
+                if (document.getElementById('to').value === 'Celsius') {
+                    result += (t - 273.15).toFixed(2) + " C";
+                } else if (document.getElementById('to').value === 'Kelvin') {
+                    result += t.toFixed(2) + " K";
+                } else {
+                    result += ((t - 273.15) * 9 / 5 + 32).toFixed(2) + " F";
+                }
+            } else {
+                if (document.getElementById('to').value === 'Celsius') {
+                    result += ((t - 32) * 5 / 9).toFixed(2) + " C";
+                } else if (document.getElementById('to').value === 'Kelvin') {
+                    result += (((t - 32) * 5 / 9) + 273.15).toFixed(2) + " K";
+                } else {
+                    result += t + " F";
+                }
+            }
+            
+            document.getElementById("output").innerText = result;
+        }
+    </script>
+</body>
+</html>
